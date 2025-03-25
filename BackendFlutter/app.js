@@ -7,11 +7,12 @@ const cors = require('cors');
 app.use(cors());
 
 // Opción avanzada: configurar CORS con reglas específicas
-app.use(cors({
-    origin: '*', // Permitir cualquier origen (puedes cambiarlo por el dominio de tu Flutter web)
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    next();
+});
 
 const alquilerR = require('./routes/alquilerroutes');
 const autosR = require('./routes/autosroutes');
